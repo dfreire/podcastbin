@@ -1,6 +1,3 @@
-// https://github.com/transloadit/uppy/blob/master/examples/aws-presigned-url/s3-sign.php
-// https://softwareontheroad.com/aws-s3-secure-direct-upload/
-
 const AWS = require("aws-sdk");
 
 const {
@@ -10,7 +7,7 @@ const {
   MY_BUCKET
 } = process.env;
 
-const signatureVersion = "v4"; // "latest" ?
+const signatureVersion = "v4";
 
 AWS.config.update({
   accessKeyId: MY_ACCESS_KEY,
@@ -21,8 +18,6 @@ AWS.config.update({
 
 const s3 = new AWS.S3({
   region: MY_REGION,
-  // endpoint: new AWS.Endpoint(`${MY_BUCKET}.s3-accelerate.amazonaws.com`),
-  // useAccelerateEndpoint: true,
   signatureVersion
 });
 
@@ -43,7 +38,6 @@ module.exports = async (req, res) => {
     };
 
     const handler = (err, data) => {
-      console.log("aws data", { data });
       if (err) {
         reject(err);
       } else {
@@ -58,6 +52,5 @@ module.exports = async (req, res) => {
     method: "put",
     url: signedURL,
     fields: []
-    // headers: "headers"
   });
 };

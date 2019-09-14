@@ -3,6 +3,13 @@ import Uppy from "@uppy/core";
 import AwsS3 from "@uppy/aws-s3";
 import { DragDrop } from "@uppy/react";
 
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.podcastbin.com"
+    : "http://localhost:9000";
+
 const uppy = Uppy({
   meta: {},
   restrictions: { maxNumberOfFiles: 1 },
@@ -12,8 +19,7 @@ const uppy = Uppy({
 });
 
 const getUploadParameters = file => {
-  console.log("getUploadParameters");
-  return fetch("http://localhost:9000/api/sign", {
+  return fetch(`${API_URL}/sign`, {
     method: "post",
     headers: {
       accept: "application/json",
@@ -35,7 +41,7 @@ const Example = () => {
     };
 
     const onSuccess = (file, data) => {
-      console.log("onComplete", { file, data });
+      console.log("onSuccess", { file, data });
     };
 
     uppy.on("complete", onComplete);
