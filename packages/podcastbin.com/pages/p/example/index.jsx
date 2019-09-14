@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import Uppy from "@uppy/core";
 import AwsS3 from "@uppy/aws-s3";
-import { DragDrop } from "@uppy/react";
+import Dashboard from "@uppy/react/lib/Dashboard";
 
 console.log("NODE_ENV", process.env.NODE_ENV);
 
@@ -12,7 +13,7 @@ const API_URL =
 
 const uppy = Uppy({
   meta: {},
-  restrictions: { maxNumberOfFiles: 1 },
+  restrictions: { minNumberOfFiles: 1, maxNumberOfFiles: 1 },
   autoProceed: true,
   allowMultipleUploads: false,
   debug: true
@@ -53,6 +54,7 @@ const Example = () => {
 
     const onSuccess = (file, data) => {
       console.log("onSuccess", { file, data });
+      uppy.removeFile(file.id);
       const filename = file.data.name;
       getDownloadUrl(filename).then(({ url }) => {
         setUrl(url);
@@ -70,16 +72,16 @@ const Example = () => {
 
   return (
     <div>
+      <Head>
+        <title>Example</title>
+        <link
+          href="https://transloadit.edgly.net/releases/uppy/v1.4.0/uppy.min.css"
+          rel="stylesheet"
+        ></link>
+      </Head>
+
       <div>
-        <DragDrop
-          uppy={uppy}
-          locale={{
-            strings: {
-              dropHereOr: "Drop here or %{browse}",
-              browse: "browse"
-            }
-          }}
-        />
+        <Dashboard uppy={uppy} />
       </div>
       {url != null && <a href={url}>{url}</a>}
     </div>
