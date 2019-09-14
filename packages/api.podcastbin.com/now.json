@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [{ "src": "api/**/*.js", "use": "@now/node" }],
+  "routes": [
+    {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, GET",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+      },
+      "src": "/api/ping",
+      "dest": "/api/ping/index.js"
+    },
+    {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, POST",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+      },
+      "src": "/api/sign",
+      "dest": "/api/sign/index.js"
+    }
+  ]
+}
