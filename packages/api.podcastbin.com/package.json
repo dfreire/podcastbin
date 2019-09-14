@@ -1,0 +1,17 @@
+{
+  "name": "api.podcastbin.com",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "now dev --listen 9000"
+  },
+  "engines": {
+    "node": "^10"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.528.0"
+  },
+  "devDependencies": {
+    "now": "^16.2.0"
+  }
+}
