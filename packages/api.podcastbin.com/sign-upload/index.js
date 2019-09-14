@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
   const signedURL = await new Promise((resolve, reject) => {
     const params = {
-      // Expires: 30 * 60, // 30 minutes
+      Expires: 30 * 60,
       Bucket: MY_BUCKET,
       Key: filename,
       ContentType: contentType

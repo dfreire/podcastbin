@@ -17,8 +17,17 @@
         "Access-Control-Allow-Methods": "OPTIONS, POST",
         "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
       },
-      "src": "/sign",
-      "dest": "/sign/index.js"
+      "src": "/sign-upload",
+      "dest": "/sign-upload/index.js"
+    },
+    {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, POST",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+      },
+      "src": "/sign-download",
+      "dest": "/sign-download/index.js"
     }
   ]
 }
