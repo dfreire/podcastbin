@@ -13,7 +13,7 @@ const uppy = Uppy({
 
 const getUploadParameters = file => {
   console.log("getUploadParameters");
-  return fetch("http://localhost:3001/api/sign", {
+  return fetch("http://localhost:9000/api/sign", {
     method: "post",
     headers: {
       accept: "application/json",

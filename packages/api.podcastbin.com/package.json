@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "now dev"
+    "dev": "now dev --listen 9000"
+  },
+  "engines": {
+    "node": "^10"
   },
   "dependencies": {
     "aws-sdk": "^2.528.0"
