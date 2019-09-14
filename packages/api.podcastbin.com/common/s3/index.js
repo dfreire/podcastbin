@@ -1,4 +1,4 @@
-const AWS = require("aws-sdk");
+import AWS from "aws-sdk";
 
 const {
   MY_ACCESS_KEY,
@@ -21,4 +21,21 @@ const s3 = new AWS.S3({
   signatureVersion
 });
 
-export default s3;
+export const signS3 = (command, params) =>
+  new Promise((resolve, reject) => {
+    const finalParams = {
+      Expires: 30 * 60,
+      Bucket: MY_BUCKET,
+      ...params
+    };
+
+    const handler = (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    };
+
+    s3.getSignedUrl(command, finalParams, handler);
+  });

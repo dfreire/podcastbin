@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Uppy from "@uppy/core";
 import AwsS3 from "@uppy/aws-s3";
 import { DragDrop } from "@uppy/react";
 
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+console.log("NODE_ENV", process.env.NODE_ENV);
 
 const API_URL =
   process.env.NODE_ENV === "production"
@@ -18,8 +18,8 @@ const uppy = Uppy({
   debug: true
 });
 
-const getUploadParameters = file => {
-  return fetch(`${API_URL}/sign`, {
+const getUploadParameters = file =>
+  fetch(`${API_URL}/sign-upload`, {
     method: "post",
     headers: {
       accept: "application/json",
@@ -30,11 +30,22 @@ const getUploadParameters = file => {
       contentType: file.type
     })
   }).then(response => response.json());
-};
+
+const getDownloadUrl = async filename =>
+  fetch(`${API_URL}/sign-download`, {
+    method: "post",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({ filename })
+  }).then(response => response.json());
 
 uppy.use(AwsS3, { getUploadParameters });
 
 const Example = () => {
+  const [url, setUrl] = useState();
+
   useEffect(() => {
     const onComplete = result => {
       console.log("onComplete", { result });
@@ -42,6 +53,10 @@ const Example = () => {
 
     const onSuccess = (file, data) => {
       console.log("onSuccess", { file, data });
+      const filename = file.data.name;
+      getDownloadUrl(filename).then(({ url }) => {
+        setUrl(url);
+      });
     };
 
     uppy.on("complete", onComplete);
@@ -51,19 +66,22 @@ const Example = () => {
       uppy.off("complete", onComplete);
       uppy.off("upload-success", onSuccess);
     };
-  });
+  }, []);
 
   return (
     <div>
-      <DragDrop
-        uppy={uppy}
-        locale={{
-          strings: {
-            dropHereOr: "Drop here or %{browse}",
-            browse: "browse"
-          }
-        }}
-      />
+      <div>
+        <DragDrop
+          uppy={uppy}
+          locale={{
+            strings: {
+              dropHereOr: "Drop here or %{browse}",
+              browse: "browse"
+            }
+          }}
+        />
+      </div>
+      {url != null && <a href={url}>{url}</a>}
     </div>
   );
 };
