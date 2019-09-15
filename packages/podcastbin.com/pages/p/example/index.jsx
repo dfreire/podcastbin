@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Uppy from "@uppy/core";
 import AwsS3 from "@uppy/aws-s3";
-import Dashboard from "@uppy/react/lib/Dashboard";
+import DragDrop from "@uppy/react/lib/DragDrop";
+import StatusBar from "@uppy/react/lib/StatusBar";
 
 console.log("NODE_ENV", process.env.NODE_ENV);
 
@@ -80,8 +81,9 @@ const Example = () => {
         ></link>
       </Head>
 
-      <div>
-        <Dashboard uppy={uppy} />
+      <div style={{ color: "green" }}>
+        <DragDrop uppy={uppy} />
+        <StatusBar uppy={uppy} />
       </div>
       {url != null && <a href={url}>{url}</a>}
     </div>
