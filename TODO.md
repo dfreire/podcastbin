@@ -1,5 +1,4 @@
-# Routes
+# TODO
 
-[ ] /u/user_id
-[ ] /p/podcast_id
-  [ ] /rss
+- [ ] /p/podcast_id
+  - [ ] /rss

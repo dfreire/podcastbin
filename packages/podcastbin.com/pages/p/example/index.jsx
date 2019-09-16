@@ -31,7 +31,9 @@ const getUploadParameters = file =>
       filename: file.name,
       contentType: file.type
     })
-  }).then(response => response.json());
+  })
+    .then(response => response.json())
+    .then(({ url }) => ({ url, method: "put", fields: [] }));
 
 const getDownloadUrl = async filename =>
   fetch(`${API_URL}/sign-download`, {
