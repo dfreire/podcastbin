@@ -9,11 +9,7 @@ export default async (req, res) => {
       Key: filename,
       ContentType: contentType
     });
-    res.json({
-      method: "put",
-      url,
-      fields: []
-    });
+    res.json({ url });
   }
 
   res.status(401).send();
