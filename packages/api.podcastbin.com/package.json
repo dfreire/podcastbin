@@ -9,7 +9,7 @@
     "node": "^10"
   },
   "dependencies": {
-    "aws-sdk": "^2.528.0",
+    "aws-sdk": "^2.814.0",
     "ship-hold": "^2.0.2"
   },
   "devDependencies": {
